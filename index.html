@@ -19,6 +19,7 @@
 
 
 
+
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Unbounded:wght@700&family=Vollkorn+SC:wght@700&family=Story+Script&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f3f1ed;--ink:#121212;--page:#1b1b1b;--ease:cubic-bezier(.2,.8,.2,1);--spring:cubic-bezier(.34,1.56,.64,1);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -130,6 +131,10 @@ button,input,textarea{font-family:inherit}
 .coverpick{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:100%;aspect-ratio:1/.8;border-radius:30px;border:2px dashed #8887;background:#8882 center/cover;color:inherit;font-size:16px;font-weight:600;cursor:pointer;margin-bottom:16px;transition:transform .35s var(--spring)}
 .coverpick:active{transform:scale(.97)}.coverpick.has{border-color:transparent}.coverpick svg{width:26px;height:26px}
 .delsp{display:block;width:100%;margin-top:8px;border:1.5px solid #c0392b88;background:none;color:#e0483a;border-radius:16px;padding:14px;font-size:16px;font-weight:600;cursor:pointer}
+.glass.big.pill{width:auto;padding:0 26px;font-size:16px}
+.grp .glass:not(.round){min-width:76px}
+.grp .glass.big.pill{min-width:84px}
+.grp{align-items:center}
 /* edit */
 .imgwrap{display:flex;align-items:flex-end;justify-content:center;padding:14px;border-radius:32px;background:#333 center/cover;aspect-ratio:1/.9;margin-bottom:14px;animation:pop .45s var(--ease) both}
 .out{animation:out .25s var(--ease) forwards}
@@ -210,7 +215,7 @@ function pickFiles(cb){const f=$('#file');f.value='';f.onchange=()=>cb([...f.fil
 async function addFiles(draft,fs,done){if(draft.busy)return;draft.busy=true;toast('Processing…');const room=10-draft.imgs.length;const start=draft.imgs.length;let bad=0;for(const f of fs.slice(0,room)){const d=await processFile(f);if(d)draft.imgs.push(d);else bad++}draft.busy=false;if(bad)toast("Couldn't read "+bad+(bad>1?' files':' file'));else if(fs.length>room)toast('Max 10 pictures per post');else $('#toast').classList.remove('on');done(start)}
 
 /* bar */
-function mk(spec,tone,i){const b=document.createElement('button');b.className='glass '+tone+(spec.round?' round':'')+(spec.big?' big':'');b.innerHTML=spec.html;b.style.setProperty('--i',i);b.setAttribute('aria-label',spec.label||'');b.onclick=spec.fn;return b}
+function mk(spec,tone,i){const b=document.createElement('button');b.className='glass '+tone+(spec.round?' round':'')+(spec.big?' big':'')+(spec.pill?' pill':'');b.innerHTML=spec.html;b.style.setProperty('--i',i);b.setAttribute('aria-label',spec.label||'');b.onclick=spec.fn;return b}
 function setBar(left,rights,lum,stack,lefts){const bar=$('#bar'),t=toneCls(lum);bar.innerHTML='';bar.style.justifyContent=(stack&&!lefts)?'flex-end':'';
  const l=left?mk(left,t,0):document.createElement('span');const g=document.createElement('div');g.className='grp';rights.forEach((r,i)=>{const b=mk(r,t,i+1);r.el=b;g.append(b)});
  if(lefts){const lc=document.createElement('div');lc.className='col lcol';lefts.forEach((s,i)=>lc.append(mk(s,t,i+2)));bar.append(lc)}
@@ -320,7 +325,7 @@ function openSpace(id){const s=id==='liked'?LIKED:spaces.find(x=>x.id===id);if(!
  const S=$('#space'),list=sorted().filter(p=>inSpace(p,id)),c=coverOf(s);
  S.innerHTML=`<div class="sphead" style="${c?`background-image:url(${c})`:''}"><h1></h1><p>${cnt(list.length)}</p></div>`+(list.length?`<div class="grid">${list.map((p,i)=>`<button class="tile" data-id="${p.id}" style="--i:${Math.min(i,14)};background-image:url(${p.imgs[0]})">${p.imgs.length>1?IC.multi:''}</button>`).join('')}</div>`:'<div class="empty">No posts yet.<br>Tap + to add the first one.</div>');
  S.querySelector('h1').textContent=s.name;S.querySelectorAll('.tile').forEach(t=>t.onclick=()=>openPost(t.dataset.id));
- setBar({html:IC.x,round:1,big:1,label:'Back',fn:openSpaces},id==='liked'?[]:[{html:'Edit',fn:()=>openSpaceForm(id)},{html:IC.plus,round:1,big:1,label:'New post',fn:()=>openCompose(id)}],isDark()?0:1);show('space')}
+ setBar({html:IC.x,round:1,big:1,label:'Back',fn:openSpaces},id==='liked'?[]:[{html:'Edit',pill:1,big:1,fn:()=>openSpaceForm(id)},{html:IC.plus,round:1,big:1,label:'New post',fn:()=>openCompose(id)}],isDark()?0:1);show('space')}
 function openSpaceForm(id){const s=id&&spaces.find(x=>x.id===id),d={name:s?s.name:'',cover:s?s.cover:null,busy:false},F=$('#spform');
  F.innerHTML='<div class="comp"><h2></h2><button class="coverpick" id="cp"></button><input class="inp" id="sn" maxlength="40" placeholder="Space name">'+(s?'<button class="delsp" id="ds">Delete space</button>':'')+'</div>';
  F.querySelector('h2').textContent=s?'Edit Space':'New Space';
