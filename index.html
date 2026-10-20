@@ -17,6 +17,7 @@
 
 
 
+
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Unbounded:wght@700&family=Vollkorn+SC:wght@700&family=Story+Script&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f3f1ed;--ink:#121212;--page:#1b1b1b;--ease:cubic-bezier(.2,.8,.2,1);--spring:cubic-bezier(.34,1.56,.64,1);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -57,7 +58,6 @@ button,input,textarea{font-family:inherit}
 .glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(90px 60px at var(--mx) var(--my),rgba(255,255,255,.55),transparent 70%);opacity:.6;transition:opacity .3s}
 .glass.pressed{--s:1.14;transition:transform .2s var(--ease);box-shadow:inset 1.5px 1.5px 1px #fffc,inset -1px -1px 1px #fff6,inset 0 0 24px #fff5,0 14px 30px rgba(0,0,0,.28)}
 .glass.pressed::before{opacity:1}
-.glass.release{animation:wob .6s var(--spring)}
 @keyframes wob{0%{transform:scale(1.14)}35%{transform:scale(.94,1.05)}65%{transform:scale(1.04,.98)}100%{transform:scale(1)}}
 .refract .glass{backdrop-filter:url(#lg) blur(7px) saturate(1.9) brightness(1.06)}
 .glass.lt{--gfg:#111;--gt:rgba(255,255,255,.5)}
@@ -111,6 +111,24 @@ button,input,textarea{font-family:inherit}
 .fchip{flex:none;border:1.5px solid #8886;background:none;color:inherit;border-radius:99px;padding:9px 16px;cursor:pointer;line-height:1.2;transition:background .25s,border-color .25s,transform .3s var(--spring)}
 .fchip:active{transform:scale(.94)}.fchip.on{background:#8883;border-color:currentColor}
 .stage h2{margin-top:30px}
+.lcol{flex-direction:row!important;flex-wrap:wrap;align-items:flex-end!important;max-width:54%}
+.tsug{flex-basis:100%;display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}.tsug .fchip{padding:6px 12px;font-size:14px;font-family:inherit}
+.sugg{position:absolute;left:0;right:0;bottom:calc(88px + env(safe-area-inset-bottom,0px));z-index:19;display:flex;gap:8px;overflow-x:auto;padding:6px 18px;scrollbar-width:none}.sugg::-webkit-scrollbar{display:none}.sugg .glass{flex:none}
+.glass.nav{height:58px;padding:4px;gap:2px}.glass.nav.pressed{--s:1.05}
+.nt{flex-direction:column!important;gap:3px;width:68px!important;height:50px!important}.nt svg{width:18px;height:18px}.nt span{font-size:11px;font-weight:600;line-height:1}
+.nt.on{color:#2f6bff}.glass.dk .nt.on{color:#8db0ff}
+.lbl{font-size:14px;font-weight:600;opacity:.6;margin:16px 0 8px}
+.stage p.sub:empty,.banner p:empty{display:none}
+.spcard{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;aspect-ratio:1/1.05;border:0;padding:0 24px;background:linear-gradient(135deg,#3a4a5a,#1e2630) center/cover;color:#fff;cursor:pointer;text-align:center;animation:pop .6s var(--ease) both;animation-delay:calc(var(--i)*70ms);transition:transform .4s var(--spring),filter .2s}
+.spcard::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.3)}.spcard>*{position:relative;z-index:1}
+.spcard:active{transform:scale(.985);filter:brightness(.92)}
+.spcard b,.sphead h1{font-family:Unbounded,Figtree,sans-serif;font-weight:700;font-size:34px;line-height:1.1;letter-spacing:-.5px;margin:0;word-break:break-word}
+.spcard span,.sphead p{font-size:18px;font-weight:500;margin:8px 0 0;opacity:.92}
+.sphead{position:relative;height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px;color:#fff;background:linear-gradient(135deg,#3a4a5a,#1e2630) center/cover;animation:fade .6s both}
+.sphead::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.3)}.sphead>*{position:relative;z-index:1}.sphead+.grid{margin-top:3px}
+.coverpick{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:100%;aspect-ratio:1/.8;border-radius:30px;border:2px dashed #8887;background:#8882 center/cover;color:inherit;font-size:16px;font-weight:600;cursor:pointer;margin-bottom:16px;transition:transform .35s var(--spring)}
+.coverpick:active{transform:scale(.97)}.coverpick.has{border-color:transparent}.coverpick svg{width:26px;height:26px}
+.delsp{display:block;width:100%;margin-top:8px;border:1.5px solid #c0392b88;background:none;color:#e0483a;border-radius:16px;padding:14px;font-size:16px;font-weight:600;cursor:pointer}
 /* edit */
 .imgwrap{display:flex;align-items:flex-end;justify-content:center;padding:14px;border-radius:32px;background:#333 center/cover;aspect-ratio:1/.9;margin-bottom:14px;animation:pop .45s var(--ease) both}
 .out{animation:out .25s var(--ease) forwards}
@@ -139,6 +157,9 @@ input.inp{font-weight:700;font-size:19px}textarea.inp{resize:none;line-height:1.
 <div class="app">
   <section class="screen on" id="library"></section>
   <section class="screen" id="tags"></section>
+  <section class="screen" id="spaces"></section>
+  <section class="screen" id="space"></section>
+  <section class="screen" id="spform"></section>
   <section class="screen" id="view"></section>
   <section class="screen" id="edit"></section>
   <section class="screen" id="compose"></section>
@@ -150,6 +171,9 @@ input.inp{font-weight:700;font-size:19px}textarea.inp{resize:none;line-height:1.
 const $=s=>document.querySelector(s);
 const IC={x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
  heart:f=>`<svg viewBox="0 0 24 24" fill="${f?'currentColor':'none'}" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.7-7.5-10.3A4.2 4.2 0 0112 7.6a4.2 4.2 0 017.5 2.6c0 5.6-7.5 10.3-7.5 10.3z"/></svg>`,
+ diamond:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l9.5 9.5-9.5 9.5L2.5 12z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+ circle:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9.5"/></svg>',
+ tri:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.5l9 16h-18z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
  grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.8"/></svg>',
  hash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M9.5 4L8 20M16 4l-1.5 16M5 9h15M4 15h15"/></svg>',
  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.500 15.500L20 20"/></svg>',
@@ -159,10 +183,10 @@ if(/Chrome|Edg/.test(navigator.userAgent)&&!/iPhone|iPad|Android.*Firefox/.test(
 const isDark=()=>matchMedia('(prefers-color-scheme:dark)').matches;
 
 /* storage */
-let posts=[],db=null;
+let posts=[],spaces=[],db=null;
 const openDB=()=>new Promise(r=>{try{const q=indexedDB.open('paradise',1);q.onupgradeneeded=()=>q.result.createObjectStore('k');q.onsuccess=()=>{db=q.result;r()};q.onerror=()=>r()}catch(e){r()}});
-const load=()=>new Promise(r=>{if(!db)return r();try{const g=db.transaction('k').objectStore('k').get('posts');g.onsuccess=()=>{posts=g.result||[];r()};g.onerror=()=>r()}catch(e){r()}});
-const save=()=>{try{if(db)db.transaction('k','readwrite').objectStore('k').put(posts,'posts')}catch(e){toast('Could not save')}};
+const load=()=>new Promise(r=>{if(!db)return r();try{const s=db.transaction('k').objectStore('k'),g=s.get('posts'),g2=s.get('spaces');g.onsuccess=()=>{posts=g.result||[]};g2.onsuccess=()=>{spaces=g2.result||[];r()};g.onerror=g2.onerror=()=>r()}catch(e){r()}});
+const save=()=>{try{if(db){const t=db.transaction('k','readwrite').objectStore('k');t.put(posts,'posts');t.put(spaces,'spaces')}}catch(e){toast('Could not save')}};
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const get=id=>posts.find(p=>p.id===id);
 const sorted=()=>[...posts].sort((a,b)=>b.ts-a.ts);
@@ -191,17 +215,19 @@ function setBar(left,rights,lum,stack,lefts){const bar=$('#bar'),t=toneCls(lum);
  if(lefts){const lc=document.createElement('div');lc.className='col lcol';lefts.forEach((s,i)=>lc.append(mk(s,t,i+2)));bar.append(lc)}
  if(stack){const c=document.createElement('div');c.className='col';c.append(l,g);bar.append(c)}else bar.append(l,g);return {l,g}}
 
-/* liquid glass: reacts to touch */
+/* liquid glass: reacts to touch; spring physics via transitions only, so nothing replays or resets */
 (()=>{let cur=null,sx=0,sy=0;
  const pos=(e,g)=>{const r=g.getBoundingClientRect();g.style.setProperty('--mx',(e.clientX-r.left)+'px');g.style.setProperty('--my',(e.clientY-r.top)+'px')};
- document.addEventListener('pointerdown',e=>{const g=e.target.closest('.glass');if(!g||g.classList.contains('sg'))return;cur=g;sx=e.clientX;sy=e.clientY;g.classList.remove('release');g.classList.add('pressed');pos(e,g)});
- document.addEventListener('pointermove',e=>{const g=cur||e.target.closest?.('.glass');if(!g)return;pos(e,g);if(cur){const k=v=>Math.max(-6,Math.min(6,v*.18));g.style.setProperty('--tx',k(e.clientX-sx)+'px');g.style.setProperty('--ty',k(e.clientY-sy)+'px')}});
- const up=()=>{if(!cur)return;const g=cur;cur=null;g.classList.remove('pressed');g.style.setProperty('--tx','0px');g.style.setProperty('--ty','0px');void g.offsetWidth;g.classList.add('release');setTimeout(()=>g.classList.remove('release'),600)};
- document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up)})();
+ const k=v=>Math.max(-7,Math.min(7,v*.2));
+ document.addEventListener('pointerdown',e=>{const g=e.target.closest('.glass');if(!g||g.classList.contains('sg'))return;cur=g;sx=e.clientX;sy=e.clientY;g.classList.add('pressed');pos(e,g)});
+ document.addEventListener('pointermove',e=>{const g=cur||e.target.closest?.('.glass');if(!g||g.classList.contains('sg'))return;pos(e,g);if(cur){g.style.setProperty('--tx',k(e.clientX-sx)+'px');g.style.setProperty('--ty',k(e.clientY-sy)+'px')}});
+ const up=()=>{if(!cur)return;const g=cur;cur=null;g.classList.remove('pressed');g.style.setProperty('--tx','0px');g.style.setProperty('--ty','0px')};
+ document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up);
+ document.addEventListener('animationend',e=>{if(e.animationName==='pop'&&e.target.classList&&e.target.classList.contains('glass'))e.target.style.animation='none'})})();
 
 /* library */
 let hi=0,hiTimer=null;
-let origin='lib';const back=()=>origin==='tags'?openTags():goLibrary();
+let origin='lib';const back=()=>origin==='tags'?openTags():origin==='spaces'?openSpaces():origin.startsWith('space:')?openSpace(origin.slice(6)):goLibrary();
 function goLibrary(){
  origin='lib';clearInterval(hiTimer);
  const list=sorted(),liked=list.filter(p=>p.liked),L=$('#library');
@@ -236,38 +262,70 @@ const pos=it=>`left:calc(${it[0]}*1cqw);top:calc(${it[1]}*1cqw);width:calc(${it[
 /* hashtags */
 const getTags=p=>p.tags||(p.tags=[]);
 const cleanTag=v=>v.replace(/^#+/,'').toLowerCase().replace(/[^\p{L}\p{N}_]/gu,'').slice(0,24);
-const validTag=(tags,v)=>v==='liked'?'"Liked" is a default hashtag':tags.includes(v)?'Already added':tags.length>=2?'Max 2 hashtags per post':'';
+const MAXTAG=5;
+const allTags=()=>{const c={};posts.forEach(p=>getTags(p).forEach(t=>c[t]=(c[t]||0)+1));return Object.keys(c).sort((a,b)=>c[b]-c[a]||a.localeCompare(b))};
+const validTag=(tags,v)=>v==='liked'?'"Liked" is a default hashtag':tags.includes(v)?'Already added':tags.length>=MAXTAG?'Max 5 hashtags per post':'';
 function tagEditor(box,tags){
  const r=()=>{box.innerHTML='';
   tags.forEach((t,i)=>{const c=document.createElement('span');c.className='chip';c.textContent='#'+t;const x=document.createElement('button');x.type='button';x.innerHTML='&times;';x.setAttribute('aria-label','Remove #'+t);x.onclick=()=>{tags.splice(i,1);r()};c.append(x);box.append(c)});
-  if(tags.length<2){const i=document.createElement('input');i.className='tadd';i.maxLength=24;i.autocomplete='off';i.setAttribute('autocapitalize','off');i.placeholder=tags.length?'Add another hashtag':'Add hashtags (max 2)';
+  if(tags.length<MAXTAG){const i=document.createElement('input');i.className='tadd';i.maxLength=24;i.autocomplete='off';i.setAttribute('autocapitalize','off');i.placeholder=tags.length?'Add another hashtag':'Add hashtags (max 5)';
    const add=()=>{const v=cleanTag(i.value);if(!v){i.value='';return}const e=validTag(tags,v);if(e){i.value='';return toast(e)}i.onblur=null;tags.push(v);r();box.querySelector('.tadd')?.focus()};
-   i.onkeydown=e=>{if(e.key==='Enter'||e.key===' '||e.key===','){e.preventDefault();add()}};i.onblur=()=>{if(i.value.trim())add()};box.append(i)}};
+   i.onkeydown=e=>{if(e.key==='Enter'||e.key===' '||e.key===','){e.preventDefault();add()}};i.onblur=()=>{if(i.value.trim())add()};box.append(i);
+   const sg=allTags().filter(x=>!tags.includes(x));if(sg.length){const row=document.createElement('div');row.className='tsug';sg.forEach(x=>{const b=document.createElement('button');b.type='button';b.className='fchip';b.textContent='#'+x;b.onclick=()=>{tags.push(x);r()};row.append(b)});box.append(row)}}};
  r()}
-function addTagBar(p,lum,done){const bar=$('#bar'),t=toneCls(lum),tags=getTags(p);bar.innerHTML='';bar.style.justifyContent='';
- const x=mk({html:IC.x,round:1,label:'Cancel',fn:done},t,0);x.style.cssText='width:48px;height:48px;flex:none';
- const sg=document.createElement('label');sg.className='glass sg '+t;sg.style.setProperty('--i',1);
- sg.innerHTML='<b>#</b><input placeholder="Add hashtag" maxlength="24" autocomplete="off" autocapitalize="off" aria-label="Hashtag">';
+function addTagBar(p,lum,done){const bar=$('#bar'),tn=toneCls(lum),tags=getTags(p);bar.innerHTML='';bar.style.justifyContent='';
+ const sug=document.createElement('div');sug.className='sugg';$('.app').append(sug);
+ const fin=()=>{sug.remove();done()};
+ const draw=()=>{sug.innerHTML='';const list=allTags().filter(x=>!tags.includes(x));sug.style.display=list.length?'':'none';
+  list.forEach((x,i)=>{const b=mk({html:'#'+x,fn:()=>{tags.push(x);save();toast('Added #'+x);tags.length>=MAXTAG?fin():draw()}},tn,i);sug.append(b)})};
+ const x=mk({html:IC.x,round:1,label:'Cancel',fn:fin},tn,0);x.style.cssText='width:48px;height:48px;flex:none';
+ const sg=document.createElement('label');sg.className='glass sg '+tn;sg.style.setProperty('--i',1);
+ sg.innerHTML='<b>#</b><input placeholder="New hashtag" maxlength="24" autocomplete="off" autocapitalize="off" aria-label="Hashtag">';
  const inp=sg.querySelector('input');
- const go=()=>{const v=cleanTag(inp.value),e=!v?'Type a hashtag':validTag(tags,v);if(e)return toast(e);tags.push(v);save();toast('Added #'+v);done()};
- const ok=mk({html:'Add',fn:go},t,2);ok.style.marginLeft='10px';
- inp.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();go()}if(e.key==='Escape')done()};
- bar.append(x,sg,ok);setTimeout(()=>inp.focus(),120)}
+ const go=()=>{const v=cleanTag(inp.value),e=!v?'Type a hashtag':validTag(tags,v);if(e)return toast(e);tags.push(v);save();toast('Added #'+v);fin()};
+ const ok=mk({html:'Add',fn:go},tn,2);ok.style.marginLeft='10px';
+ inp.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();go()}if(e.key==='Escape')fin()};
+ bar.append(x,sg,ok);draw();setTimeout(()=>inp.focus(),120)}
 function navBar(active){const bar=$('#bar'),t=toneCls(isDark()?0:1);bar.innerHTML='';bar.style.justifyContent='';
  const nav=document.createElement('div');nav.className='glass nav '+t;
- nav.innerHTML=`<button class="nt${active=='lib'?' on':''}" aria-label="Library">${IC.grid}</button><button class="nt${active=='tags'?' on':''}" aria-label="Hashtags">${IC.hash}</button>`;
- nav.children[0].onclick=()=>{if(active!='lib')goLibrary()};nav.children[1].onclick=()=>{if(active!='tags')openTags()};
+ [['lib','All',IC.diamond,goLibrary],['tags','Hashtags',IC.circle,()=>openTags()],['spaces','Spaces',IC.tri,openSpaces]].forEach(([id,label,ic,fn])=>{const b=document.createElement('button');b.className='nt'+(active==id?' on':'');b.innerHTML=ic+'<span>'+label+'</span>';b.onclick=()=>{if(active!=id)fn()};nav.append(b)});
  const col=document.createElement('div');col.className='col';
  if(active=='lib')col.append(mk({html:IC.search,round:1,big:1,label:'Search',fn:openSearch},t,1));
- col.append(mk({html:IC.plus,round:1,big:1,label:'New post',fn:openCompose},t,2));bar.append(nav,col)}
+ col.append(mk({html:IC.plus,round:1,big:1,label:active=='spaces'?'New Space':'New post',fn:active=='spaces'?()=>openSpaceForm():()=>openCompose()},t,2));bar.append(nav,col)}
 function openTags(focus){
  origin='tags';clearInterval(hiTimer);
  const T=$('#tags'),list=sorted(),has=(p,n)=>getTags(p).includes(n),groups=[{name:'Liked',liked:true,posts:list.filter(p=>p.liked)}];
  [...new Set(list.flatMap(getTags))].map(n=>({name:n,posts:list.filter(p=>has(p,n))})).sort((a,b)=>b.posts.length-a.posts.length||a.name.localeCompare(b.name)).forEach(g=>groups.push(g));
- T.innerHTML='<div class="tagshead"><h1>Hashtags</h1></div>'+groups.map((g,gi)=>`<div class="tgsec" data-tag="${g.name}"><div class="tghd"><span>${g.liked?IC.heart(1)+'Liked':'#'+g.name}</span><em>${g.posts.length}</em></div>${g.posts.length?`<div class="tgrow">${g.posts.map((p,i)=>`<button class="tile" data-id="${p.id}" style="--i:${Math.min(i+gi*2,14)};background-image:url(${p.imgs[0]})">${p.imgs.length>1?IC.multi:''}</button>`).join('')}</div>`:'<div class="tgnone">Like a post and it shows up here.</div>'}</div>`).join('')+(groups.length==1?'<div class="tgnone" style="padding-top:18px">Add up to 2 hashtags to a post to organize it here.</div>':'');
+ T.innerHTML='<div class="tagshead"><h1>Hashtags</h1></div>'+groups.map((g,gi)=>`<div class="tgsec" data-tag="${g.name}"><div class="tghd"><span>${g.liked?IC.heart(1)+'Liked':'#'+g.name}</span><em>${g.posts.length}</em></div>${g.posts.length?`<div class="tgrow">${g.posts.map((p,i)=>`<button class="tile" data-id="${p.id}" style="--i:${Math.min(i+gi*2,14)};background-image:url(${p.imgs[0]})">${p.imgs.length>1?IC.multi:''}</button>`).join('')}</div>`:'<div class="tgnone">Like a post and it shows up here.</div>'}</div>`).join('')+(groups.length==1?'<div class="tgnone" style="padding-top:18px">Add up to 5 hashtags to a post to organize it here.</div>':'');
  T.querySelectorAll('.tile').forEach(t=>t.onclick=()=>openPost(t.dataset.id));
  navBar('tags');show('tags');
  if(focus){const el=T.querySelector(`[data-tag="${focus}"]`);if(el)setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),350)}}
+
+/* spaces */
+const coverOf=s=>s.cover||((sorted().find(p=>p.space===s.id)||{imgs:[]}).imgs[0])||null;
+const cnt=n=>n+' post'+(n==1?'':'s');
+function spacePicker(box,d){const w=$('#spw');if(!spaces.length){w.style.display='none';return}box.className='fonts';
+ const r=()=>{box.innerHTML='';[{id:null,name:'No Space'},...spaces].forEach(s=>{const b=document.createElement('button');b.type='button';b.className='fchip'+((d.space||null)===s.id?' on':'');b.textContent=s.name;b.onclick=()=>{d.space=s.id;r()};box.append(b)})};r()}
+function openSpaces(){origin='spaces';clearInterval(hiTimer);const S=$('#spaces');
+ S.innerHTML=spaces.length?[...spaces].sort((a,b)=>b.ts-a.ts).map((s,i)=>{const c=coverOf(s);return `<button class="spcard" data-id="${s.id}" style="--i:${Math.min(i,6)};${c?`background-image:url(${c})`:''}"><b></b><span>${cnt(posts.filter(p=>p.space===s.id).length)}</span></button>`}).join(''):'<div class="empty">Create your first Space with +<br><small>A Space keeps related posts together, like Job, Home or Vacation.</small></div>';
+ S.querySelectorAll('.spcard').forEach(c=>{c.querySelector('b').textContent=spaces.find(x=>x.id===c.dataset.id).name;c.onclick=()=>openSpace(c.dataset.id)});
+ navBar('spaces');show('spaces')}
+function openSpace(id){const s=spaces.find(x=>x.id===id);if(!s)return openSpaces();origin='space:'+id;clearInterval(hiTimer);
+ const S=$('#space'),list=sorted().filter(p=>p.space===id),c=coverOf(s);
+ S.innerHTML=`<div class="sphead" style="${c?`background-image:url(${c})`:''}"><h1></h1><p>${cnt(list.length)}</p></div>`+(list.length?`<div class="grid">${list.map((p,i)=>`<button class="tile" data-id="${p.id}" style="--i:${Math.min(i,14)};background-image:url(${p.imgs[0]})">${p.imgs.length>1?IC.multi:''}</button>`).join('')}</div>`:'<div class="empty">No posts yet.<br>Tap + to add the first one.</div>');
+ S.querySelector('h1').textContent=s.name;S.querySelectorAll('.tile').forEach(t=>t.onclick=()=>openPost(t.dataset.id));
+ setBar({html:IC.x,round:1,big:1,label:'Back',fn:openSpaces},[{html:'Edit',fn:()=>openSpaceForm(id)},{html:IC.plus,round:1,big:1,label:'New post',fn:()=>openCompose(id)}],isDark()?0:1);show('space')}
+function openSpaceForm(id){const s=id&&spaces.find(x=>x.id===id),d={name:s?s.name:'',cover:s?s.cover:null,busy:false},F=$('#spform');
+ F.innerHTML='<div class="comp"><h2></h2><button class="coverpick" id="cp"></button><input class="inp" id="sn" maxlength="40" placeholder="Space name">'+(s?'<button class="delsp" id="ds">Delete space</button>':'')+'</div>';
+ F.querySelector('h2').textContent=s?'Edit Space':'New Space';
+ const sn=$('#sn'),cp=$('#cp');sn.value=d.name;sn.oninput=()=>d.name=sn.value;
+ const r=()=>{cp.style.backgroundImage=d.cover?`url(${d.cover})`:'';cp.innerHTML=d.cover?'':IC.plus+'<span>Add cover</span>';cp.classList.toggle('has',!!d.cover)};r();
+ cp.onclick=()=>{if(d.busy)return;pickFiles(async fs=>{if(!fs[0])return;d.busy=true;toast('Processing…');const x=await processFile(fs[0]);d.busy=false;if(x){d.cover=x;$('#toast').classList.remove('on');r()}else toast("Couldn't read that file")})};
+ const ds=$('#ds');if(ds){let armed=0;ds.onclick=()=>{if(!armed){armed=1;ds.textContent='Tap again to delete';setTimeout(()=>{armed=0;ds.textContent='Delete space'},3000);return}
+  posts.forEach(p=>{if(p.space===id)p.space=null});spaces=spaces.filter(x=>x.id!==id);save();openSpaces();toast('Space deleted')}}
+ setBar({html:IC.x,round:1,label:'Cancel',fn:()=>s?openSpace(id):openSpaces()},[{html:s?'Done':'Create',fn:()=>{const nm=d.name.trim();if(!nm)return toast('A name is required');
+  if(s){s.name=nm;s.cover=d.cover}else spaces.push({id:uid(),name:nm,cover:d.cover,ts:Date.now()});save();s?openSpace(id):openSpaces()}}],isDark()?0:1);
+ show('spform')}
 
 /* search */
 function openSearch(){
@@ -303,7 +361,7 @@ async function openPost(id){
   cards.forEach((c,i)=>c.onclick=()=>{if(focus===i)return;focus=focus===null?i:null;apply()})}
  let vlum=.8,b;
  const vbar=()=>{const tags=getTags(p),lefts=tags.map(tg=>({html:'#'+tg,fn:()=>openTags(tg)}));
-  if(tags.length<2)lefts.push({html:'Add Hashtags',fn:()=>addTagBar(p,vlum,vbar)});
+  if(tags.length<MAXTAG)lefts.push({html:'Add Hashtags',fn:()=>addTagBar(p,vlum,vbar)});
   b=setBar({html:IC.x,round:1,label:'Close',fn:back},[{html:'Edit',fn:()=>openEdit(id)},{html:IC.heart(p.liked),round:1,label:'Like',fn:()=>{p.liked=!p.liked;save();const h=b.g.lastChild;h.innerHTML=IC.heart(p.liked);h.classList.remove('heartpop');void h.offsetWidth;h.classList.add('heartpop');toast(p.liked?'Added to Liked':'Removed from Liked')}}],vlum,true,lefts)};
  vbar();show('view');
  const c=await colorInfo(p.imgs[0],true);V.style.background=c.css;V.style.color=c.lum>.58?'#111':'#fff';vlum=c.lum;if(V.classList.contains('on'))retone($('#bar'),c.lum);
@@ -312,9 +370,9 @@ async function openPost(id){
 /* edit: draft is kept in memory, nothing is saved until Done */
 function openEdit(id){
  const p=get(id),E=$('#edit'),d={title:p.title,sub:p.sub||'',imgs:[...p.imgs],busy:false};
- E.innerHTML='<div class="stage"><div id="eimgs"></div><button class="glass dk" id="addpic" style="width:100%"></button><input class="field" id="et" maxlength="60" placeholder="Title"><div id="fp"></div><textarea class="field" id="es" maxlength="300" placeholder="Subtitle"></textarea><div class="tagbox" id="tg"></div></div>';
+ E.innerHTML='<div class="stage"><div id="eimgs"></div><button class="glass dk" id="addpic" style="width:100%"></button><input class="field" id="et" maxlength="60" placeholder="Title"><div id="fp"></div><textarea class="field" id="es" maxlength="300" placeholder="Subtitle (optional)"></textarea><div class="tagbox" id="tg"></div><div id="spw"><div class="lbl">Space</div><div id="sp"></div></div></div>';
  $('#addpic').innerHTML=IC.plus+' Add picture';
- const et=$('#et'),es=$('#es');d.tags=[...getTags(p)];tagEditor($('#tg'),d.tags);d.font=p.font||'default';fontPicker($('#fp'),d,et,22);et.value=d.title;es.value=d.sub;et.oninput=()=>d.title=et.value;es.oninput=()=>d.sub=es.value;
+ const et=$('#et'),es=$('#es');d.tags=[...getTags(p)];tagEditor($('#tg'),d.tags);d.font=p.font||'default';fontPicker($('#fp'),d,et,22);d.space=p.space||null;spacePicker($('#sp'),d);et.value=d.title;es.value=d.sub;et.oninput=()=>d.title=et.value;es.oninput=()=>d.sub=es.value;
  const render=(from=1e9)=>{
   const box=$('#eimgs');box.innerHTML='';
   d.imgs.forEach((s,i)=>{const w=document.createElement('div');w.className='imgwrap';w.style.backgroundImage=`url(${s})`;if(i<from)w.style.animation='none';
@@ -329,26 +387,26 @@ function openEdit(id){
   $('#addpic').style.display=d.imgs.length<10?'':'none'};
  render();
  $('#addpic').onclick=()=>pickFiles(fs=>addFiles(d,fs,start=>render(start)));
- setBar({html:IC.x,round:1,label:'Discard changes',fn:()=>openPost(id)},[{html:'Done',fn:()=>{if(!d.title.trim())return toast('A title is required');p.title=d.title.trim();p.sub=d.sub.trim();p.imgs=d.imgs;p.tags=d.tags;p.font=d.font;save();openPost(id)}}],0);
+ setBar({html:IC.x,round:1,label:'Discard changes',fn:()=>openPost(id)},[{html:'Done',fn:()=>{if(!d.title.trim())return toast('A title is required');p.title=d.title.trim();p.sub=d.sub.trim();p.imgs=d.imgs;p.tags=d.tags;p.font=d.font;p.space=d.space||null;save();openPost(id)}}],0);
  show('edit');
 }
 
 /* compose */
-function openCompose(){
- const C=$('#compose'),d={imgs:[],tags:[],font:'default',busy:false};
- C.innerHTML='<div class="comp"><h2>New post</h2><div class="thumbs" id="th"></div><div class="counter" id="cnt"></div><input class="inp" id="ct" maxlength="60" placeholder="Title"><div id="fp"></div><textarea class="inp" id="cs" rows="4" maxlength="300" placeholder="Subtitle"></textarea><div class="tagbox" id="tg"></div></div>';
+function openCompose(sid){
+ const C=$('#compose'),d={imgs:[],tags:[],font:'default',space:typeof sid==='string'?sid:null,busy:false};
+ C.innerHTML='<div class="comp"><h2>New post</h2><div class="thumbs" id="th"></div><div class="counter" id="cnt"></div><input class="inp" id="ct" maxlength="60" placeholder="Title"><div id="fp"></div><textarea class="inp" id="cs" rows="4" maxlength="300" placeholder="Subtitle (optional)"></textarea><div class="tagbox" id="tg"></div><div id="spw"><div class="lbl">Space</div><div id="sp"></div></div></div>';
  const render=(from=1e9)=>{
   const th=$('#th');th.innerHTML='';
   d.imgs.forEach((s,i)=>{const t=document.createElement('div');t.className='thumb';t.style.backgroundImage=`url(${s})`;if(i<from)t.style.animation='none';
    const x=document.createElement('button');x.className='glass dk';x.innerHTML=IC.x;x.onclick=()=>{t.classList.add('out');setTimeout(()=>{d.imgs.splice(d.imgs.indexOf(s),1);render()},240)};t.append(x);th.append(t)});
   if(d.imgs.length<10){const pk=document.createElement('button');pk.className='pick';pk.innerHTML=IC.plus+'Add';pk.onclick=()=>pickFiles(fs=>addFiles(d,fs,st=>render(st)));th.append(pk)}
   $('#cnt').textContent=d.imgs.length+' / 10 pictures'};
- render();tagEditor($('#tg'),d.tags);fontPicker($('#fp'),d,$('#ct'),19);
+ render();tagEditor($('#tg'),d.tags);fontPicker($('#fp'),d,$('#ct'),19);spacePicker($('#sp'),d);
  let posting=false;
  setBar({html:IC.x,round:1,label:'Cancel',fn:back},[{html:'Post',fn:()=>{
   if(posting||d.busy)return;const ti=$('#ct').value.trim(),su=$('#cs').value.trim();
-  if(!d.imgs.length)return toast('Add at least one picture');if(!ti)return toast('Add a title');if(!su)return toast('Add a subtitle');
-  posting=true;posts.push({id:uid(),title:ti,sub:su,imgs:d.imgs,liked:false,tags:[...d.tags],font:d.font,ts:Date.now()});save();goLibrary();toast('Posted')}}],isDark()?0:1);
+  if(!d.imgs.length)return toast('Add at least one picture');if(!ti)return toast('Add a title');
+  posting=true;posts.push({id:uid(),title:ti,sub:su,imgs:d.imgs,liked:false,tags:[...d.tags],font:d.font,space:d.space||null,ts:Date.now()});save();(origin.startsWith('space:')?openSpace(origin.slice(6)):goLibrary());toast('Posted')}}],isDark()?0:1);
  show('compose');
 }
 matchMedia('(prefers-color-scheme:dark)').addEventListener?.('change',()=>{if($('#library').classList.contains('on')||$('#compose').classList.contains('on'))retone($('#bar'),isDark()?0:1)});
